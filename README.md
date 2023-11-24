@@ -13,37 +13,37 @@ users
 |lastname_kana              |string     |null: false                            |
 |birthday                   |date       |null: false                            |
 
-has_many :items_information
+has_many :items
 has_many :purchase_records
 
 
-items_information
+items
 
 |product_name               |string     |null: false                            |
 |product_description        |string     |null: false                            |
 |price                      |integer    |null: false                            |
-|user_id                    |integer    |null: false                            |
+|user                       |references |null: false, foreign_key: true         |
 |category_id                |integer    |null: false                            |
 |item_condition_id          |integer    |null: false                            |
 |shipping_fee_id            |integer    |null: false                            |
 |shipping_area_id           |integer    |null: false                            |
-|estimated_shipping_date_id |integer    |foreign_key: true                      |
+|estimated_shipping_date_id |integer    |null: false                            |
 
 belongs_to :users
-has_many :purchase_records
+has_one :purchase_record
 
 
 purchase_records
 
-|user_id                        |string     |null: false                       |
-|items_information_id           |string     |null: false                       |
+|user                           |references |null: false, foreign_key: true    |
+|item                           |references |null: false, foreign_key: true    |
 
 belongs to:user
 belongs to:item_information
-belongs to:shipping_addres_information
+has_one:shipping_addres
 
 
-shipping_address_information
+shipping_address
 
 |postal_code                |string     |null: false                            |
 |shipping_area_id           |integer    |null: false                            |
@@ -51,5 +51,6 @@ shipping_address_information
 |street                     |string     |null: false                            |
 |building_name              |string     |                                       |
 |phone_number               |string     |null: false                            |
+|purchase_record            |references |null: false, foreign_key: true         |
 
-belongs to:Purchase_record
+belongs to:purchase_record

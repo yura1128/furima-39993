@@ -39,7 +39,7 @@ purchase_records
 |item                           |references |null: false, foreign_key: true    |
 
 belongs to:user
-belongs to:item_information
+belongs to:item
 has_one:shipping_address
 
 

@@ -1,24 +1,56 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+users
+|Column                     |Type       |Options                                |
+|---------------------------|-----------|---------------------------------------|
+|nickname                   |string     |null: false                            |
+|email                      |string     |null: false, unique: true              |
+|encrypted_password         |string     |null: false                            |
+|firstname_kanji            |string     |null: false                            |
+|lastname_kanji             |string     |null: false                            |
+|firstname_kana             |string     |null: false                            |
+|lastname_kana              |string     |null: false                            |
+|birthday                   |date       |null: false                            |
 
-* Ruby version
+has_many :items
+has_many :purchase_records
 
-* System dependencies
 
-* Configuration
+items
 
-* Database creation
+|product_name               |string     |null: false                            |
+|product_description        |string     |null: false                            |
+|price                      |integer    |null: false                            |
+|user                       |references |null: false, foreign_key: true         |
+|category_id                |integer    |null: false                            |
+|item_condition_id          |integer    |null: false                            |
+|shipping_fee_id            |integer    |null: false                            |
+|shipping_area_id           |integer    |null: false                            |
+|estimated_shipping_date_id |integer    |null: false                            |
 
-* Database initialization
+belongs_to :user
+has_one :purchase_record
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+purchase_records
 
-* Deployment instructions
+|user                           |references |null: false, foreign_key: true    |
+|item                           |references |null: false, foreign_key: true    |
 
-* ...
+belongs to:user
+belongs to:item
+has_one:shipping_address
+
+
+shipping_addresses
+
+|postal_code                |string     |null: false                            |
+|shipping_area_id           |integer    |null: false                            |
+|city                       |string     |null: false                            |
+|street                     |string     |null: false                            |
+|building_name              |string     |                                       |
+|phone_number               |string     |null: false                            |
+|purchase_record            |references |null: false, foreign_key: true         |
+
+belongs to:purchase_record

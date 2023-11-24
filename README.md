@@ -29,7 +29,7 @@ items
 |shipping_area_id           |integer    |null: false                            |
 |estimated_shipping_date_id |integer    |null: false                            |
 
-belongs_to :users
+belongs_to :user
 has_one :purchase_record
 
 
@@ -40,10 +40,10 @@ purchase_records
 
 belongs to:user
 belongs to:item_information
-has_one:shipping_addres
+has_one:shipping_address
 
 
-shipping_address
+shipping_addresses
 
 |postal_code                |string     |null: false                            |
 |shipping_area_id           |integer    |null: false                            |

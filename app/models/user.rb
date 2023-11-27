@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   validates :nickname, :firstname_kanji, :lastname_kanji, :firstname_kana, :lastname_kana, :birthday, presence: true
 
-  validates :email, uniqueness: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "must contain @ symbol" }
   validates :password, presence: true, length: { minimum: 6 }
   validate  :password_complexity
   validates :lastname_kanji, :firstname_kanji, format: { with: /\A[\p{Han}\p{Hiragana}\p{Katakana}]+\z/, message: "must be full-width (Kanji, Hiragana, Katakana)" }

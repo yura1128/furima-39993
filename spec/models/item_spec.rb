@@ -80,6 +80,18 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Price must be in 300..9999999"
       end
 
+      it '半角数字以外の値が含まれている場合は登録できない' do
+        @item.price = 'abc'
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Price is not a number"
+      end
+
+      it 'userが紐づいていないと保存できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'User must exist'
+      end
+
     end
   end
 end

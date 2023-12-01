@@ -12,6 +12,6 @@ class Item < ApplicationRecord
 
   validates :image, :product_name, :product_description, :price, presence: true
   validates :category_id, :estimated_shipping_date_id, :item_condition_id, :shipping_area_id, :shipping_fee_id, numericality: { other_than: 1 }
-  validates :price, numericality: { in: 300..9999999 }, format: { with: /\A[0-9]+\z/ }
+  validates :price, numericality: { in: 300..9999999, only_integer: true }
 
 end

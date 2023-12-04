@@ -2,7 +2,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
-  #has_one :purchase_record
+  has_one :purchase_record
   
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -15,5 +15,7 @@ class Item < ApplicationRecord
   validates :image, :product_name, :product_description, :price, presence: true
   validates :category_id, :estimated_shipping_date_id, :item_condition_id, :shipping_area_id, :shipping_fee_id, numericality: { other_than: 1 }
   validates :price, numericality: { in: 300..9999999, only_integer: true }
+
+
 
 end

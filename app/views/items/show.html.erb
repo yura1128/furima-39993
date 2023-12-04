@@ -21,7 +21,7 @@
         ¥ <%= @item.price%>
       </span>
       <span class="item-postage">
-        <%= @item.shipping_fee_id == 1 ? "送料込み" : "着払い" %>
+        <%= @item.shipping_fee.name %>
       </span>
     </div>
 

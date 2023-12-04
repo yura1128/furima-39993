@@ -3,7 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
-  has_many :purchase_records
+  #has_many :purchase_records
 
   validates :nickname, :firstname_kanji, :lastname_kanji, :firstname_kana, :lastname_kana, :birthday, presence: true
 

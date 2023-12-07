@@ -13,6 +13,11 @@ RSpec.describe Purchase, type: :model do
       it '全ての項目が正しく入力されている場合、有効であること' do
         expect(@purchase).to be_valid
       end
+
+      it '建物名が空でも有効であること' do
+        @purchase.building_name = ''
+        expect(@purchase).to be_valid
+      end
     end
 
     context '異常系' do
@@ -56,6 +61,24 @@ RSpec.describe Purchase, type: :model do
         @purchase.phone_number = '123-456-7890'
         @purchase.valid?
         expect(@purchase.errors.full_messages).to include "Phone number is invalid. Input only numbers"
+      end
+
+      it '電話番号が9桁以下では登録できない' do
+        @purchase.phone_number = '123456789' # 9桁
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include "Phone number is invalid. Input only numbers"
+      end
+    
+      it '電話番号が12桁以上では登録できない' do
+        @purchase.phone_number = '123456789012' # 12桁
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include "Phone number is invalid. Input only numbers"
+      end
+    
+      it 'tokenが空では登録できない' do
+        @purchase.token = ''
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include "Token can't be blank"
       end
 
       it 'ユーザーIDが空では登録できない' do

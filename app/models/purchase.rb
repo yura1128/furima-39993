@@ -2,22 +2,18 @@ class Purchase
   include ActiveModel::Model
 
   # PurchaseRecord attributes
-  attr_accessor :user_id, :item_id
-
-  attr_accessor :token
-
-  # ShippingAddress attributes
-  attr_accessor :postal_code, :shipping_area_id, :city, :street, :building_name, :phone_number
+  attr_accessor :user_id, :item_id, :token, :postal_code, :shipping_area_id, :city, :street, :building_name, :phone_number
 
   # Other attributes related to your logic
 
   # Validations
-  validates :user_id, :item_id, presence: true
-  validates :token, presence: true
-  validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
-  validates :shipping_area_id, presence: true, numericality: { other_than: 1 }
-  validates :city, :street, presence: true
-  validates :phone_number, presence: true, numericality: { only_integer: true }
+  with_options presence: true do
+    validates :user_id, :item_id, :token, :postal_code, :shipping_area_id, :city, :street, :phone_number
+    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
+    validates :shipping_area_id, numericality: { other_than: 1 }
+    validates :phone_number, numericality: { only_integer: true }
+  end
+  validates :phone_number, length: { minimum: 10, maximum: 11, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
   validates :phone_number, format: { with: /\A\d+\z/, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
 
   def purchase_record=(purchase_record)

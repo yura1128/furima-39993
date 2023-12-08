@@ -8,13 +8,15 @@ class Purchase
 
   # Validations
   with_options presence: true do
-    validates :user_id, :item_id, :token, :postal_code, :shipping_area_id, :city, :street, :phone_number
+    validates :user_id, :item_id, :token, :shipping_area_id, :city, :street
+
     validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
     validates :shipping_area_id, numericality: { other_than: 1 }
+
     validates :phone_number, numericality: { only_integer: true }
+    validates :phone_number, length: { minimum: 10, maximum: 11, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
+    validates :phone_number, format: { with: /\A\d+\z/, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
   end
-  validates :phone_number, length: { minimum: 10, maximum: 11, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
-  validates :phone_number, format: { with: /\A\d+\z/, message: "is invalid. Input only numbers" }, if: -> { phone_number.present? }
 
   def purchase_record=(purchase_record)
     @purchase_record = purchase_record
